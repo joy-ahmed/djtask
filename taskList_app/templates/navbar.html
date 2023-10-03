@@ -1,3 +1,4 @@
+{% load static %}
 <nav class="navbar navbar-expand-lg">
     <div class="container">
         <a class="navbar-brand" href="/">
@@ -20,27 +21,37 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="#section_2">Browse Tasks</a>
+                    <a class="nav-link click-scroll" href="{% url "all-task" %}">Browse Tasks</a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link click-scroll" href="{% url "how-it-works" %}">How it works</a>
                 </li>
-
-                <li class="nav-item">
+                
+                {% if not request.user.is_authenticated %}
+                  <li class="nav-item">
                     <a class="btn btn-info me-2 mb-2 mb-lg-0" data-bs-toggle="modal" data-bs-target="#loginModal" href="#section_4">LogIn</a>
-                </li>
+                  </li>
 
-                <li class="nav-item">
-                    <a class="btn btn-outline-info" href="{% url "signup" %}">SignUp</a>
+                  <li class="nav-item">
+                      <a class="btn btn-outline-info" href="{% url "signup" %}">SignUp</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item">
+                    <a class="btn btn-outline-info me-2 " href="{% url "logout" %}">log out</a>
                 </li>
+                {% endif %}
+                
                 
             </ul>
 
             <div class="d-none d-lg-block">
-               <div class="d-flex justify-content-center align-items-center bg-info rounded-circle" style="width: 36px; height: 36px;">
-                    <a href="#top" class="navbar-icon bi-person smoothscroll text-white"></a>
-               </div>
+               {% if request.user.is_authenticated %}
+                <div class="d-flex justify-content-center align-items-center bg-info rounded-circle" style="width: 36px; height: 36px;">
+                  {% comment %} <a href="#top" class="navbar-icon bi-person smoothscroll text-white"></a> {% endcomment %}
+                  <img src="{{avatar}}" alt="" style="width: 100%;">
+                </div>
+               {% endif %}
             </div>
         </div>
     </div>
@@ -58,7 +69,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form>
+            <form action="{% url 'login' %}" method="POST">
+              {% csrf_token %}
                 <div class="mb-3">
                   <div class="input-group">
                     <div class="input-group-text">@</div>

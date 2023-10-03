@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from taskList_app.models import ProfileImg
+
+@admin.register(ProfileImg)
+class AdminProfile(admin.ModelAdmin):
+    pass
