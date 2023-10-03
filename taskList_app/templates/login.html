@@ -2,7 +2,13 @@
 
 {% block main %}
     <div class="container">
-        <form>
+      <div class="card mx-auto my-5 " style="width: 32rem">
+        <div class="card-body">
+          <div class="card-title">
+            <h3>LogIn to your account</h3>
+          </div>
+          <form method="POST">
+            {% csrf_token %}
             <div class="mb-3">
               <div class="input-group">
                 <div class="input-group-text">@</div>
@@ -21,8 +27,13 @@
               <p><a href="{% url "signup" %}">create an account</a></p>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-box-arrow-in-right"></i> Login</button>
             </div>
           </form>
+        </div>
+      </div>
+      <div>
+        <a href="{% url "home" %}"><i class="bi bi-arrow-left"></i> Back to homepage</a>
+      </div>
     </div>
 {% endblock main %}
