@@ -51,7 +51,6 @@ def signupPage(request):
         password_one = request.POST.get("password_one")
         password_two = request.POST.get("password_two")
         avatar = request.FILES["avatar"]
-        print(username, first_name, last_name, email, password_one, password_two, avatar)
         if password_one == password_two:
             user = User(
                 username = username,
@@ -60,15 +59,12 @@ def signupPage(request):
                 email = email,
                 password = make_password(password_one),
             )
-            print(user)
             user.save()
 
             user_avatar = ProfileImg(
                 profileImg = avatar,
                 user = user
             )
-
-            print(user_avatar)
 
             user_avatar.save()
 

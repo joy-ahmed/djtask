@@ -12,3 +12,11 @@ class ProfileImg(models.Model):
     def __str__(self):
         return self.user.username
     
+
+
+
+class TaskList(models.Model):
+    title = models.CharField(max_length=80)
+    done = models.BooleanField(default=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
