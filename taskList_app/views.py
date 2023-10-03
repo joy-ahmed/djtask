@@ -85,8 +85,31 @@ def allTasks(request):
         avatar = ""
 
     task = TaskList.objects.all()
+    users = User.objects.all()
 
-    return render(request, "tasklist.html", {"avatar": avatar, "tasks": task})
+    return render(request, "tasklist.html", {"avatar": avatar, "tasks": task, "users": users})
 
 
 
+def addTask(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        done = request.POST.get('done')
+
+        user_id = request.POST.get('user')
+        user = User.objects.get(pk=user_id) if user_id else None
+
+        if done == 'on':
+            done = True
+        else:
+            done = False
+
+        task = TaskList(
+            title = title,
+            done = done,
+            user = user
+        )
+
+        task.save()
+
+        return redirect('all-task')

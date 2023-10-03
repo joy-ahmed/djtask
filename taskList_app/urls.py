@@ -10,6 +10,7 @@ urlpatterns = [
     path('signup/', views.signupPage, name="signup"),
     path('logout/', views.logoutPage, name="logout"),
     path('all-tasks/', views.allTasks, name="all-task"),
+    path('add-task/', views.addTask, name="add-task"),
 ]
 
 
