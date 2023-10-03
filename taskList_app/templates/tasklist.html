@@ -28,8 +28,7 @@
                         <td>{{task.done}}</td>
                         <td>{{task.user}}</td>
                         <td>
-                            <button>Edit</button>
-                            <button>Delete</button>
+                            <a href="{% url "delete-task" task.id %}">Delete</a>
                         </td>
                     </tr>
                 {% endfor %}

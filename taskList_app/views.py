@@ -113,3 +113,9 @@ def addTask(request):
         task.save()
 
         return redirect('all-task')
+    
+
+def deleteTask(request, task_id):
+    task = TaskList.objects.get(id = task_id)
+    task.delete()
+    return redirect('all-task')
