@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}
+    <title>Signup | Task Manager</title>
+{% endblock title %}
+{% load static %}
+{% block main %}
+
+    <!-- Sign up form -->
+    <section class="signup d-flex justify-content-center align-items-center" style="height: 100vh">
+        <div class="container">
+            <h2 class="text-center ">Register your account</h2>
+            <div class="signup-content d-flex justify-content-center align-items-center">
+                <div class="signup-form flex-grow-1">
+                    <form method="POST" class="w-75" id="register-form">
+                        <div class="input-group mb-3">
+                            <div class="input-group-text">@</div>
+                            <input required name="username" type="text" class="form-control form-control-lg " id="autoSizingInputGroup" placeholder="Username">
+                          </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-text"><i class="bi bi-person"></i></div>
+                            <input name="first_name" type="text" class="form-control form-control-lg" id="autoSizingInputGroup" placeholder="First Name">
+                          </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-text"><i class="bi bi-person"></i></div>
+                            <input name="last_name" type="text" class="form-control form-control-lg" id="autoSizingInputGroup" placeholder="Last Name">
+                          </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-text"><i class="bi bi-envelope"></i></div>
+                            <input required name="email" type="email" class="form-control form-control-lg" id="autoSizingInputGroup" placeholder="example@email.com">
+                          </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-text"><i class="bi bi-key"></i></div>
+                            <input required name="" type="password" class="form-control form-control-lg" id="autoSizingInputGroup" placeholder="password">
+                          </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-text"><i class="bi bi-key"></i></div>
+                            <input required name="" type="password" class="form-control form-control-lg" id="autoSizingInputGroup" placeholder="repeat password">
+                          </div>
+                          <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                    <a href="{% url "login" %}" class="signup-image-link">I am already member</a>
+                </div>
+                <div class="d-none d-lg-block ">
+                    <figure><img src="{% static "img/sign_up.png" %}" alt="sing up image"></figure>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock main %}

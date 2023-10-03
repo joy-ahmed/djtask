@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <div class="container">
+        <form>
+            <div class="mb-3">
+              <div class="input-group">
+                <div class="input-group-text">@</div>
+                <input name="username" placeholder="username" type="text" class="form-control form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp">
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="input-group">
+                <div class="input-group-text"><i class="bi bi-key"></i></div>
+                <input name="password" placeholder="password" type="password" class="form-control form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp">
+              </div>
+            </div>
+            <div class="mb-3 d-flex gap-2">
+              <p><a href="#">Forgot password?</a></p>
+              <span>or</span>
+              <p><a href="{% url "signup" %}">create an account</a></p>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+          </form>
+    </div>
+{% endblock main %}
