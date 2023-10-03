@@ -1,8 +1,9 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
-from .models import ProfileImg
+from .models import *
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -75,11 +76,17 @@ def signupPage(request):
 
 
 
-
+@login_required
 def allTasks(request):
     avatar = None
     try:
         avatar = ProfileImg.objects.get(user=request.user).profileImg.url
     except:
         avatar = ""
-    return render(request, "tasklist.html", {"avatar": avatar})
+
+    task = TaskList.objects.all()
+
+    return render(request, "tasklist.html", {"avatar": avatar, "tasks": task})
+
+
+

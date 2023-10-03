@@ -6,7 +6,11 @@
         </a>
 
         <div class="d-lg-none ms-auto me-4">
-            <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+          {% if request.user.is_authenticated %}
+            <div class="d-flex justify-content-center align-items-center bg-info border border-dark-subtle rounded-circle"
+            style="width: 40px; height: 40px; background-image: url('{{ avatar }}'); background-size: cover; background-position: center;">
+            </div>
+         {% endif %}
         </div>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +44,7 @@
                   <li class="nav-item">
                     <a class="btn btn-outline-info me-2 " href="{% url "logout" %}">log out</a>
                 </li>
-                
+
                 {% endif %}
                 
                 
@@ -52,7 +56,8 @@
                   {% comment %} <a href="#top" class="navbar-icon bi-person smoothscroll text-white"></a> {% endcomment %}
                   {% comment %} <img src="{{avatar}}" alt="" style="width: 100%;"> {% endcomment %}
                 {% comment %} </div> {% endcomment %}
-                <div class="d-flex justify-content-center align-items-center bg-info border border-dark-subtle rounded-circle" style="width: 40px; height: 40px; background-image: url('{{ avatar }}'); background-size: cover; background-position: center;">
+                <div class="d-flex justify-content-center align-items-center bg-info border border-dark-subtle rounded-circle"
+                 style="width: 40px; height: 40px; background-image: url('{{ avatar }}'); background-size: cover; background-position: center;">
                 </div>
                {% endif %}
             </div>

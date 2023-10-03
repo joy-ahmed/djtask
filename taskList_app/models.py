@@ -18,5 +18,9 @@ class ProfileImg(models.Model):
 class TaskList(models.Model):
     title = models.CharField(max_length=80)
     done = models.BooleanField(default=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+    
     

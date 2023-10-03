@@ -5,6 +5,37 @@
 {% endblock title %}
 
 
-{% block main %}
+{% if request.user.is_authenticated %}
+    {% block main %}
 
-{% endblock main %}
+    <div class="container">
+        <table class="table table-bordered ">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Task added by</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td>{{task.title}}</td>
+                        <td>{{task.done}}</td>
+                        <td>{{task.user}}</td>
+                        <td>
+                            <button>Edit</button>
+                            <button>Delete</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% endblock main %}
+    {% else %}
+    <!-- You can display a message or provide a link to the login page here -->
+    <p>You must be logged in to view this page. <a href="{% url 'login' %}">Login</a></p>
+{% endif %}

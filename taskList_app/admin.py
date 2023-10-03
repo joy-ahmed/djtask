@@ -10,4 +10,4 @@ class AdminProfile(admin.ModelAdmin):
 
 @admin.register(TaskList)
 class TaskListAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('id', 'title', 'user', 'done')
