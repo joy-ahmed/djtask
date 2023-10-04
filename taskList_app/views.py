@@ -4,6 +4,7 @@ from .models import *
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
@@ -114,9 +115,15 @@ def addTask(request):
     
 
 def deleteTask(request, task_id):
-    task = TaskList.objects.get(id = task_id)
-    task.delete()
-    return redirect('all-task')
+    if request.user.is_authenticated:
+        task = TaskList.objects.get(id = task_id)
+        if task.user == request.user or request.user.is_superuser:
+            task.delete()
+        else:
+            messages.error(request, "You are not authorized for this action.")
+        return redirect('all-task')
+    else:
+        return redirect('login')
 
 def editTask(request, task_id):
     task = TaskList.objects.get(id = task_id)
