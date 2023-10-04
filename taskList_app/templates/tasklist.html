@@ -9,6 +9,16 @@
     {% block main %}
 
     <div class="container">
+
+        {% if messages %}
+            {% for message in messages %}
+            <div id="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+        {% endif %}
+
         <div class="mb-5 d-flex text-end ">
             <button data-bs-toggle="modal" data-bs-target="#addtaskModal">Add New Task</button>
         </div>
@@ -107,12 +117,19 @@
             </div>
         </div>
     {% endfor %}
-
-
     {% endblock main %}
     {% else %}
     <!-- You can display a message or provide a link to the login page here -->
     <p>You must be logged in to view this page. <a href="{% url 'login' %}">Login</a></p>
+    {% block js %}
+        <script>
+            const msg = document.querySelector("#alert");
+            console.log(msg)
+            setTimeout(() => {
+            msg.remove()
+        }, 5000);
+        </script>
+    {% endblock js %}
 {% endif %}
 
 
