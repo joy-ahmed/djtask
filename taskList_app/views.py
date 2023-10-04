@@ -27,14 +27,17 @@ def howitworks(request):
 
 
 def loginPage(request):
-    if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        user = authenticate(request, username = username, password = password)
-        if user is not None:
-            login(request, user)
-            return redirect("all-task")
-    return render(request, 'login.html')
+    if request.user.is_authenticated:
+        return redirect('all-task')
+    else:
+        if request.method == "POST":
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+            user = authenticate(request, username = username, password = password)
+            if user is not None:
+                login(request, user)
+                return redirect("all-task")
+        return render(request, 'login.html')
 
 
 def logoutPage(request):
@@ -43,35 +46,38 @@ def logoutPage(request):
 
 
 def signupPage(request):
-    if request.method == "POST":
-        username = request.POST.get("username")
-        first_name = request.POST.get("first_name")
-        last_name = request.POST.get("last_name")
-        email = request.POST.get("email")
-        password_one = request.POST.get("password_one")
-        password_two = request.POST.get("password_two")
-        avatar = request.FILES["avatar"]
-        if password_one == password_two:
-            user = User(
-                username = username,
-                first_name = first_name,
-                last_name = last_name,
-                email = email,
-                password = make_password(password_one),
-            )
-            user.save()
+    if request.user.is_authenticated:
+        return redirect('all-task')
+    else:
+        if request.method == "POST":
+            username = request.POST.get("username")
+            first_name = request.POST.get("first_name")
+            last_name = request.POST.get("last_name")
+            email = request.POST.get("email")
+            password_one = request.POST.get("password_one")
+            password_two = request.POST.get("password_two")
+            avatar = request.FILES["avatar"]
+            if password_one == password_two:
+                user = User(
+                    username = username,
+                    first_name = first_name,
+                    last_name = last_name,
+                    email = email,
+                    password = make_password(password_one),
+                )
+                user.save()
 
-            user_avatar = ProfileImg(
-                profileImg = avatar,
-                user = user
-            )
+                user_avatar = ProfileImg(
+                    profileImg = avatar,
+                    user = user
+                )
 
-            user_avatar.save()
+                user_avatar.save()
 
-            return redirect("login")
-        else:
-            return redirect('signup')
-    return render(request, 'signup.html')
+                return redirect("login")
+            else:
+                return redirect('signup')
+        return render(request, 'signup.html')
 
 
 
