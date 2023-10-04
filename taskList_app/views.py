@@ -124,7 +124,29 @@ def deleteTask(request, task_id):
         return redirect('all-task')
     else:
         return redirect('login')
+    
+
 
 def editTask(request, task_id):
-    task = TaskList.objects.get(id = task_id)
+    if request.user.is_authenticated:
+        task = TaskList.objects.get(id=task_id)
+        if task.user == request.user or request.user.is_superuser:
+            if request.method == 'POST':
+                title = request.POST.get('title')
+                done = request.POST.get('done')
+                user_id = request.POST.get('user')
+                user = User.objects.get(pk=user_id)
+                if done == 'on':
+                    done = True
+                else:
+                    done = False
+
+                task.title = title
+                task.done = done
+                task.user = user
+                task.save()
+                return redirect('all-task')
+        else:
+            messages.error(request, "You are not authorized for this action.")
+        
     return redirect('all-task')
