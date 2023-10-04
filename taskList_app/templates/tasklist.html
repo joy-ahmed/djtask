@@ -28,7 +28,7 @@
                         <td>{{task.done}}</td>
                         <td>{{task.user}}</td>
                         <td>
-                            <a href="#">Edit</a>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#editTaskModal{{ forloop.counter }}">Edit</a>
                             <a href="{% url "delete-task" task.id %}">Delete</a>
                         </td>
                     </tr>
@@ -76,8 +76,55 @@
 
     </div>
 
+
+    {% comment %} Edit taks  {% endcomment %}
+    {% for task in tasks %}
+        <div class="modal fade" id="editTaskModal{{ forloop.counter }}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editTaskModalLabel{{ forloop.counter }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editTaskModalLabel{{ forloop.counter }}">Edit Task</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{% url 'edit-task' task.id %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="editTitle{{ forloop.counter }}">Title</label>
+                                <input type="text" class="form-control" id="editTitle{{ forloop.counter }}" name="title" value="{{ task.title }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="checkbox" class="form-check-input" id="editDone{{ forloop.counter }}" name="done" {% if task.done %}checked{% endif %}>
+                                <label for="editDone{{ forloop.counter }}">Mark as Done</label>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+
     {% endblock main %}
     {% else %}
     <!-- You can display a message or provide a link to the login page here -->
     <p>You must be logged in to view this page. <a href="{% url 'login' %}">Login</a></p>
 {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -117,3 +117,7 @@ def deleteTask(request, task_id):
     task = TaskList.objects.get(id = task_id)
     task.delete()
     return redirect('all-task')
+
+def editTask(request, task_id):
+    task = TaskList.objects.get(id = task_id)
+    return redirect('all-task')
